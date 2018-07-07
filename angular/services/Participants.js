@@ -431,7 +431,6 @@ function Participants() {
 
             }
         }
-    		//document.getElementById("speaker" + participants[participantId.participantId].thumbnailId).style.display='';
     }
 
     this.streamStoppedSpeaking = function(participantId) {
