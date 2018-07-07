@@ -1,0 +1,3 @@
+var Publish = function(localStream){
+
+}
