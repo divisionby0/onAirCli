@@ -6,6 +6,8 @@
             <!--big videos-->
         </div>
 
+        <canvas id="imageOverlay"></canvas>
+
         <div style="position: absolute; z-index: 100; width: 280px; top:0; background-color: green; color: white;">
             <div class="container" id="infoContainer">
 
@@ -27,17 +29,14 @@
             <button class="btn btn--xl btn--red btn--fab mdi md-call-end " lx-ripple ng-click="leaveRoom()" id="buttonLeaveRoom" title="Leave room"></button>
             <button class="btn btn--xl btn--blue btn--fab mdi md-chat" lx-ripple ng-click="toggleChat()" title="Chat toggle"></button>
             <button class="btn btn--xl btn--teal btn--fab mdi md-phone" lx-ripple ng-click="toggleReceiveCalls()" id="buttonReceiveCalls" title="Receive calls"></button>
-
-            <input type="file" class="btn btn--xl btn--blue btn--fab mdi" lx-ripple ng-click="showImage()" title="Show image">Im</input>
+            <button class="btn btn--xl btn--teal btn--fab mdi md-attach-file" lx-ripple ng-click="addImage()" id="addImageButton" title="Add image"></button>
+            <button class="btn btn--xl btn--red btn--fab mdi md-remove" lx-ripple ng-click="clearImageOverlay()" id="clearImageOverlayButton" title="Clear image overlay"></button>
         </div>
 
         <div id="participants">
             <!--small videos-->
         </div>
     </div>
-
-
-    <!--CHAT-->
 
     <div class="toggler" style="width: 20%;height: 100%;float: right" >
         <div id="effect" style="display:none">
@@ -50,14 +49,10 @@
             <div id="chatDiv" style="height: 30em;  overflow: scroll;">
                 <div id="messages">
                     <ul class="list" >
-
-                        <!--chat messages with scroll-->
-
                     </ul>
                 </div>
             </div>
 
-            <!--message and button to send-->
             <div>
                 <form>
                     <lx-text-field label="Message">

@@ -62,7 +62,7 @@ var Registration = function($scope, ServiceParticipant, ServiceRoom, LxNotificat
             var localStream = kurento.Stream(room, {
                 audio: true,
                 video: true,
-                data: false
+                data: true
             });
 
             _room = new AppRoom($scope.isOwner, room, localStream);
@@ -78,9 +78,7 @@ var Registration = function($scope, ServiceParticipant, ServiceRoom, LxNotificat
                     }
 
                     _room.init();
-
-                    ServiceRoom.setLocalStream(localStream.getWebRtcPeer());
-
+                    
                     for (var i = 0; i < streams.length; i++) {
                         ServiceParticipant.addParticipant(streams[i]);
                     }

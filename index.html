@@ -11,6 +11,7 @@
 <link type="text/css" rel="stylesheet" href="/webjars/jquery-ui/jquery-ui.min.css">
 <link type="text/css" rel="stylesheet" href="/webjars/material-design-iconic-font/css/material-design-iconic-font.min.css">
 <link type="text/css" rel="stylesheet" href="/webjars/lumx/dist/css/lumx.css">
+<link type="text/css" rel="stylesheet" href="/css/bootstrap.min.css">
 
 <!-- Custom CSS styles -->
 <link type="text/css" rel="stylesheet" href="./css/room.css" />
@@ -27,6 +28,7 @@
 <script src="/webjars/moment/min/moment-with-locales.min.js"></script>
 <script src="/webjars/lumx/dist/js/lumx.min.js"></script>
 <script src="/webjars/EventEmitter.js/EventEmitter.min.js"></script>
+<script src="/webjars/bootstrap/bootstrap.min.js"></script>
 
 <!-- Kurento JavaScript dependencies -->
 <script src="./lib/kurento-utils.js"></script>
@@ -56,6 +58,8 @@
 	<script src="./angular/login/DetectRoomExists.js"></script>
 	<script src="./angular/login/EnterRoom.js"></script>
 	<script src="./angular/errorsView/ErrorView.js"></script>
+	<script src="./angular/services/image/LoadImage.js"></script>
+	<script src="./angular/ClearImageOverlay.js"></script>
 <script src="./angular/app.js"></script>
 <script src="./angular/call/callController.js"></script>
 	<script src="./angular/call/CallerRenderer.js"></script>
@@ -71,5 +75,26 @@
 	<div ng-view>
 		<!--display the view (login/call) with route system-->
 	</div>
+
+	<div class="modal fade" tabindex="-1" role="dialog" id="insertImageModal">
+		<div class="modal-dialog" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title">Загрузка картинки</h5>
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+				</div>
+				<div class="modal-body">
+					<p>Выберите файл.</p>
+				</div>
+				<div class="modal-footer">
+					<input type="file" id="fileInput">
+					<button type="button" class="btn btn-secondary" data-dismiss="modal">Отмена</button>
+				</div>
+			</div>
+		</div>
+	</div>
+
 </body>
 </html>

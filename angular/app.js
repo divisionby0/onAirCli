@@ -1,6 +1,6 @@
 var kurento_room = angular.module('kurento_room', ['ngRoute', 'FBAngular', 'lumx']);
 
-var appVersion = "0.0.1";
+var appVersion = "0.0.2";
 
 kurento_room.config(function ($routeProvider) {
 

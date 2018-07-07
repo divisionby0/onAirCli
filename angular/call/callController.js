@@ -1,8 +1,3 @@
-/*
- * @author Micael Gallego (micael.gallego@gmail.com)
- * @author Raquel Díaz González
- */
-
 kurento_room.controller('callController', function ($scope, $window, ServiceParticipant, ServiceRoom, Fullscreen, LxNotificationService, $routeParams) {
     $scope.roomName = ServiceRoom.getRoomName();
     $scope.userName = ServiceRoom.getUserName();
@@ -12,41 +7,15 @@ kurento_room.controller('callController', function ($scope, $window, ServicePart
 
     var _that = this;
 
+    // TODO разобратьтся в dataChannel на примере https://github.com/webrtc/samples/blob/gh-pages/src/content/datachannel/filetransfer/js/main.js
+    // TODO убрать тестирование отсылки в dataChannel из lib/KurentoRoom.js:543
+    // TODO также менял код в lib/kurento-utils.js:192
+    
     $scope.state = "NORMAL";
     $scope.canReceiveCalls = true;
 
-    /*
-    EventBus.addEventListener("APPROVE_INCOMING_CALL", function (callerName) {
-        return _that.onApproveIncomingCall(callerName);
-    });
-
-    EventBus.addEventListener("ON_CALLING_TIMED_OUT", function () {
-        return _that.onCallingTimedOut();
-    });
-    EventBus.addEventListener("ON_CALL_APPROVED", function () {
-        return _that.onCallApproved();
-    });
-    EventBus.addEventListener("ON_PARTICIPANT_LEFT", function (participantName) {
-        return _that.onParticipantLeft(participantName);
-    });
-    EventBus.addEventListener("ON_CANCEL_CALL_REQUEST", function (participantName) {
-        return _that.onParticipantLeft(participantName);
-    });
-    EventBus.addEventListener("ON_CALL_REQUEST_ERROR", function (errorData) {
-        return _that.onCallRequestError(errorData);
-    });
-
-    EventBus.addEventListener("DROP_CONVERSATION", function () {
-        console.log("Drop Conversation ");
-
-        ServiceRoom.getKurento().close();
-        ServiceParticipant.removeParticipants();
-
-        _that.refreshSubscriberPage();
-    });
-    */
-
-
+    console.log("call controller $=",$);
+    _that.jQuery = $;
 
     this.removeListeners = function(){
         EventBus.removeEventListener("APPROVE_INCOMING_CALL", function (callerName) {
@@ -76,6 +45,9 @@ kurento_room.controller('callController', function ($scope, $window, ServicePart
             ServiceParticipant.removeParticipants();
 
             _that.refreshSubscriberPage();
+        });
+        EventBus.removeEventListener("ON_IMAGE_LOADED", function (imageData) {
+            return _that.onImageLoaded(imageData);
         });
     }
 
@@ -108,6 +80,19 @@ kurento_room.controller('callController', function ($scope, $window, ServicePart
 
             _that.refreshSubscriberPage();
         });
+
+        EventBus.addEventListener("ON_IMAGE_LOADED", function (imageData) {
+            return _that.onImageLoaded(imageData);
+        });
+    }
+
+    this.onImageLoaded = function(imageData){
+        console.log("imageLoaded ",imageData);
+        _that.jQuery("#insertImageModal").modal('hide');
+
+        var kurento = ServiceRoom.getKurento();
+        kurento.sendImage($scope.roomName, imageData);
+        
     }
 
     this.refreshSubscriberPage = function(){
@@ -119,8 +104,6 @@ kurento_room.controller('callController', function ($scope, $window, ServicePart
         setTimeout(function(){
             window.location.href = '#/subscriberLogin?type=1&roomName='+$scope.roomName+'&userName='+$scope.userName;
         },3000);
-
-        //window.location.href = '#/subscriberLogin?type=1&roomName='+$scope.roomName+'&userName='+$scope.userName;
     }
 
     this.onApproveIncomingCall = function(callerName){
@@ -186,6 +169,16 @@ kurento_room.controller('callController', function ($scope, $window, ServicePart
 
         ServiceParticipant.showSimpleError(errorText);
     }
+
+    $scope.addImage = function(){
+        _that.jQuery("#insertImageModal").modal('show');
+        new LoadImage();
+    }
+    
+    $scope.clearImageOverlay=function(){
+        new ClearImageOverlay();
+    }
+
 
     $scope.leaveRoom = function () {
 

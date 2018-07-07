@@ -28,8 +28,24 @@ body {
     bottom: 0;
     right: 0;
     left: 0;
+    z-index: 99;
+    pointer-events: none;
+}
+#imageOverlay{
+    position: absolute;
+    z-index: 100;
+    pointer-events: none;
+    width: 100%;
+    height: 100%;
+    max-width: 1024px;
+    max-height: 768px;
 }
 
+#buttonActions{
+    position: absolute;
+    z-index: 110;
+    right: 10px;
+}
 
 #main-video>video {
     height: 100%;
