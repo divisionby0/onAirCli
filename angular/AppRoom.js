@@ -35,6 +35,15 @@ var AppRoom = (function () {
     AppRoom.prototype.removeParticipant = function (data) {
         this.kurentoRoom.onParticipantLeft(data);
     };
+    AppRoom.prototype.sendData = function (data) {
+        var dataChannelOpened = this.stream.isDataChannelOpened();
+        if (dataChannelOpened) {
+            this.stream.getWebRtcPeer().send(data);
+        }
+        else {
+            console.error("data channel is NOT opened");
+        }
+    };
     AppRoom.prototype.onStopConversation = function (data) {
         console.log("onStopConversation data:", data);
         console.log("executing onParticipantLeft message:", data);

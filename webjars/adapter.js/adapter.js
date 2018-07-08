@@ -1462,7 +1462,9 @@ if (typeof window === 'undefined' || !window.navigator) {
       if (this._pendingOffer) {
         throw new Error('createOffer called while there is a pending offer.');
       }
+
       var offerOptions;
+
       if (arguments.length === 1 && typeof arguments[0] !== 'function') {
         offerOptions = arguments[0];
       } else if (arguments.length === 3) {
@@ -1472,6 +1474,7 @@ if (typeof window === 'undefined' || !window.navigator) {
       var tracks = [];
       var numAudioTracks = 0;
       var numVideoTracks = 0;
+
       // Default to sendrecv.
       if (this.localStreams.length) {
         numAudioTracks = this.localStreams[0].getAudioTracks().length;
@@ -1481,8 +1484,7 @@ if (typeof window === 'undefined' || !window.navigator) {
       if (offerOptions) {
         // Reject Chrome legacy constraints.
         if (offerOptions.mandatory || offerOptions.optional) {
-          throw new TypeError(
-              'Legacy mandatory/optional constraints not supported.');
+          throw new TypeError('Legacy mandatory/optional constraints not supported.');
         }
         if (offerOptions.offerToReceiveAudio !== undefined) {
           numAudioTracks = offerOptions.offerToReceiveAudio;
@@ -1497,8 +1499,7 @@ if (typeof window === 'undefined' || !window.navigator) {
           tracks.push({
             kind: track.kind,
             track: track,
-            wantReceive: track.kind === 'audio' ?
-                numAudioTracks > 0 : numVideoTracks > 0
+            wantReceive: track.kind === 'audio' ? numAudioTracks > 0 : numVideoTracks > 0
           });
           if (track.kind === 'audio') {
             numAudioTracks--;
@@ -1507,6 +1508,7 @@ if (typeof window === 'undefined' || !window.navigator) {
           }
         });
       }
+
       // Create M-lines for recvonly streams.
       while (numAudioTracks > 0 || numVideoTracks > 0) {
         if (numAudioTracks > 0) {
@@ -1527,6 +1529,7 @@ if (typeof window === 'undefined' || !window.navigator) {
 
       var sdp = SDPUtils.writeSessionBoilerplate();
       var transceivers = [];
+
       tracks.forEach(function(mline, sdpMLineIndex) {
         // For each track, create an ice gatherer, ice transport, dtls transport,
         // potentially rtpsender and rtpreceiver.
@@ -1563,9 +1566,9 @@ if (typeof window === 'undefined' || !window.navigator) {
           sendSsrc: sendSsrc,
           recvSsrc: null
         };
+
         var transceiver = transceivers[sdpMLineIndex];
-        sdp += SDPUtils.writeMediaSection(transceiver,
-            transceiver.localCapabilities, 'offer', self.localStreams[0]);
+        sdp += SDPUtils.writeMediaSection(transceiver, transceiver.localCapabilities, 'offer', self.localStreams[0]);
       });
 
       this._pendingOffer = transceivers;

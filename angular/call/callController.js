@@ -180,6 +180,10 @@ kurento_room.controller('callController', function ($scope, $window, ServicePart
     }
 
 
+    $scope.sendDataChannelMessage = function(){
+        console.log("sending test data...");
+        AppRoomProvider.getInstance().getAppRoom().sendData("test");
+    }
     $scope.leaveRoom = function () {
 
         ServiceRoom.getKurento().close();

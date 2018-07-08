@@ -157,6 +157,7 @@ function Participants() {
         console.log("addParticipant stream=",stream);
         console.log("stream id: ",stream.getID());
         console.log("stream GlobalID: ",stream.getGlobalID());
+        console.log("stream isDataChannelEnabled: ",stream.isDataChannelEnabled());
 
         var streamGlobalId = stream.getGlobalID();
         var participantName = streamGlobalId.split("_")[0];

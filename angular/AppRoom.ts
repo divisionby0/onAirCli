@@ -41,6 +41,16 @@ class AppRoom{
     public removeParticipant(data:any):void{
         this.kurentoRoom.onParticipantLeft(data);
     }
+    public sendData(data:any):void{
+        var dataChannelOpened:boolean = this.stream.isDataChannelOpened();
+        if(dataChannelOpened){
+            this.stream.getWebRtcPeer().send(data);
+        }
+        else{
+            console.error("data channel is NOT opened");
+        }
+        
+    }
 
     private onStopConversation(data:any):void {
         console.log("onStopConversation data:",data);
