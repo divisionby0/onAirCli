@@ -37,7 +37,9 @@
 <script src="./angular/kurento/KurentoRoom.js"></script>
 <script src="./angular/kurento/Participant.js"></script>
 <script src="./angular/kurento/Room.js"></script>
-<script src="./angular/kurento/Stream.js"></script>
+	<script src="./angular/kurento/stream/WebRTCPeerFactory.js"></script>
+<script src="./angular/kurento/stream/Stream.js"></script>
+<script src="./angular/kurento/stream/StreamSendData.js"></script>
 
 <!-- Custom JavaScript dependencies -->
 	<script type="application/javascript" src="./angular/lib/collections/Map.js"></script>
@@ -57,6 +59,7 @@
 	<script src="./angular/login/RedirectToCall.js"></script>
 	<script src="./angular/login/Registration.js"></script>
 	<script src="./angular/call/CallingOnAirTimer.js"></script>
+	<script src="./angular/call/SubscriberCurrentImageView.js"></script>
 	<script src="./angular/AppRoomProvider.js"></script>
 	<script src="./angular/AppRoom.js"></script>
 	<script src="./angular/login/DetectRoomExists.js"></script>
@@ -64,6 +67,9 @@
 	<script src="./angular/errorsView/ErrorView.js"></script>
 	<script src="./angular/services/image/LoadImage.js"></script>
 	<script src="./angular/ClearImageOverlay.js"></script>
+	<script src="./angular/services/SendFile.js"></script>
+	<script src="./angular/services/ReceiveFile.js"></script>
+	<script src="./angular/RoomFile.js"></script>
 <script src="./angular/app.js"></script>
 <script src="./angular/call/callController.js"></script>
 	<script src="./angular/call/CallerRenderer.js"></script>
@@ -76,6 +82,7 @@
 </head>
 
 <body ng-app="kurento_room">
+
 	<div ng-view>
 		<!--display the view (login/call) with route system-->
 	</div>
@@ -99,6 +106,5 @@
 			</div>
 		</div>
 	</div>
-
 </body>
 </html>

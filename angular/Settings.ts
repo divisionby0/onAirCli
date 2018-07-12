@@ -8,6 +8,8 @@ class Settings{
     public static callTimeoutInterval:number = 60000;
     public static updateSpeakerInterval:number = 1800;
     public static thresholdSpeaker:number = -50;
+    public static sendFileMaxPacketSize:number = 6000;
+    public static sendFilePacketInterval:number = 250;
     
     public static setHost(host:string):void{
         Host.getInstance().setHost(host);

@@ -6,6 +6,9 @@ function AppParticipant(stream) {
     
     var that = this;
 
+    this.j = jQuery.noConflict();
+    var that = this;
+
     this.getStream = function() {
 		return this.stream;
 	}
@@ -28,7 +31,7 @@ function AppParticipant(stream) {
     }
 
     this.removeMain = function () {
-        $(that.videoElement).removeClass("active-video");
+        that.j(that.videoElement).removeClass("active-video");
     }
 
     this.remove = function () {
@@ -90,6 +93,9 @@ function Participants() {
     that.callerRenderers = new Map("callerRenderers");
     that.currentConversationUserName;
 
+    this.j = jQuery.noConflict();
+    var that = this;
+
     this.setCurrentConversationUserName = function(userName){
         //that.currentConversationUserName = userName;
         //console.log("setCurrentConversationUserName "+that.currentConversationUserName);
@@ -125,13 +131,9 @@ function Participants() {
         var maxParticipantsWithMaxWidth = 98 / MAX_WIDTH;
 
         if (numParticipants > maxParticipantsWithMaxWidth) {
-            $('.video').css({
-                "width": (98 / numParticipants) + "%"
-            });
+            that.j('.video').css({"width": (98 / numParticipants) + "%"});
         } else {
-            $('.video').css({
-                "width": MAX_WIDTH + "%"
-            });
+            that.j('.video').css({"width": MAX_WIDTH + "%"});
         }
     };
 
@@ -174,11 +176,12 @@ function Participants() {
 
         updateVideoStyle();
 
-        $(participant.videoElement).click(function (e) {
+        that.j(participant.videoElement).click(function (e) {
             updateMainParticipant(participant);
         });
 
-        // aufo show main video
+
+        // auto show main video
         updateMainParticipant(participant);
 
         return participant;
@@ -267,27 +270,27 @@ function Participants() {
     function autoOpenChat() {
         var selectedEffect = "slide";
         var options = {direction: "right"};
-        if ($("#effect").is(':hidden')) {
-            $("#content").animate({width: '80%'}, 500);
-            $("#effect").toggle(selectedEffect, options, 500);
+        if (that.j("#effect").is(':hidden')) {
+            that.j("#content").animate({width: '80%'}, 500);
+            that.j("#effect").toggle(selectedEffect, options, 500);
         }
     };
 
     this.updateInfo = function(infoText){
-        $("#infoContainer").text(infoText);
+        that.j("#infoContainer").text(infoText);
     }
     
     this.onStateChanged=function(state){
         switch(state){
             case "CALLING":
                 that.updateInfo("Вы пытаетесь дозвониться");
-                $("#buttonCallRequest").hide();
-                $("#buttonCancelCall").show();
+                that.j("#buttonCallRequest").hide();
+                that.j("#buttonCancelCall").show();
                 break;
             case "NORMAL":
                 that.updateInfo("");
-                $("#buttonCallRequest").show();
-                $("#buttonCancelCall").hide();
+                that.j("#buttonCallRequest").show();
+                that.j("#buttonCancelCall").hide();
                 break;
             case "SPEAKING":
                 if(that.currentConversationUserName){
@@ -297,8 +300,8 @@ function Participants() {
                     that.updateInfo("Вы ведете диалог");
                 }
 
-                $("#buttonCancelCall").show();
-                $("#buttonCallRequest").hide();
+                that.j("#buttonCancelCall").show();
+                that.j("#buttonCallRequest").hide();
                 break;
         }
     }
@@ -320,7 +323,7 @@ function Participants() {
         var ul = document.getElementsByClassName("list");
 
         var chatDiv = document.getElementById('chatDiv');
-        var messages = $("#messages");
+        var messages = that.j("#messages");
         var updateScroll = true;
 
         if (messages.outerHeight() - chatDiv.scrollTop > chatDiv.offsetHeight) {

@@ -89,10 +89,9 @@ kurento_room.controller('callController', function ($scope, $window, ServicePart
     this.onImageLoaded = function(imageData){
         console.log("imageLoaded ",imageData);
         _that.jQuery("#insertImageModal").modal('hide');
-
-        var kurento = ServiceRoom.getKurento();
-        kurento.sendImage($scope.roomName, imageData);
         
+        var kurento = ServiceRoom.getKurento();
+        new SendFile(kurento, imageData, $scope.roomName, "img");
     }
 
     this.refreshSubscriberPage = function(){

@@ -205,9 +205,10 @@ function Room(kurento, options) {
         EventBus.dispatchEvent("DROP_CONVERSATION", null);
     }
 
-    this.onNewImage = function(imageData){
-        console.log("New image: " + JSON.stringify(imageData));
+    this.onNewFile = function(fileData){
+        new ReceiveFile(fileData);
     }
+
     this.onNewMessage = function (msg) {
         console.log("New message: " + JSON.stringify(msg));
         var room = msg.room;

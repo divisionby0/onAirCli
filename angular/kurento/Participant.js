@@ -51,18 +51,18 @@ function Participant(kurento, local, room, options) {
     }
 
     this.sendIceCandidate = function (candidate) {
-        console.debug((local ? "Local" : "Remote"), "candidate for",
-            that.getID(), JSON.stringify(candidate));
+        console.debug((local ? "Local" : "Remote"), "candidate for", that.getID(), JSON.stringify(candidate));
         kurento.sendRequest("onIceCandidate", {
             endpointName: that.getID(),
             candidate: candidate.candidate,
             sdpMid: candidate.sdpMid,
             sdpMLineIndex: candidate.sdpMLineIndex
-        }, function (error, response) {
-            if (error) {
-                console.error("Error sending ICE candidate: "
-                    + JSON.stringify(error));
+        },
+            function (error, response) {
+                if (error) {
+                    console.error("Error sending ICE candidate: " + JSON.stringify(error));
+                }
             }
-        });
+        );
     }
 }

@@ -19,6 +19,8 @@ var Settings = (function () {
     Settings.callTimeoutInterval = 60000;
     Settings.updateSpeakerInterval = 1800;
     Settings.thresholdSpeaker = -50;
+    Settings.sendFileMaxPacketSize = 6000;
+    Settings.sendFilePacketInterval = 250;
     return Settings;
 }());
 //# sourceMappingURL=Settings.js.map

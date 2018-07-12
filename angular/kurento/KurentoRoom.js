@@ -32,7 +32,7 @@ function KurentoRoom(wsUri, callback) {
                 participantLeft: onParticipantLeft,
                 participantEvicted: onParticipantEvicted,
                 sendMessage: onNewMessage,
-                sendImage: onNewImage,
+                sendFile: onNewFile,
                 roomClosed: onRoomClosed,
                 onCallRequest: onCallRequest,
                 onCallRequestError: onCallRequestError,
@@ -116,9 +116,9 @@ function KurentoRoom(wsUri, callback) {
             room.onNewMessage(params);
         }
     }
-    function onNewImage(params){
+    function onNewFile(params){
         if (isRoomAvailable()) {
-            room.onNewImage(params);
+            room.onNewFile(params);
         }
     }
 
@@ -207,7 +207,7 @@ function KurentoRoom(wsUri, callback) {
         if (isRoomAvailable()) {
             room.disconnect(stream);
         }
-    }
+    };
 
     this.Stream = function (room, options) {
         options.participant = room.getLocalParticipant();
@@ -222,14 +222,14 @@ function KurentoRoom(wsUri, callback) {
     this.cancelCallRequest = function(room, user){
         this.sendRequest('cancelCallRequest', {room: room, callerName: user}, function (error, response) {
             if (error) {
-                console.error(error);
+                //console.error(error);
             }
         });
     }
     this.ownerDropConversationRequest = function(room, user){
         this.sendRequest('dropConversationRequest', {room: room, callerName: user}, function (error, response) {
             if (error) {
-                console.error(error);
+                //console.error(error);
             }
         });
     }
@@ -237,7 +237,7 @@ function KurentoRoom(wsUri, callback) {
     this.callRequest = function(room, user){
         this.sendRequest('callRequest', {room: room, callerName: user}, function (error, response) {
             if (error) {
-                console.error(error);
+                //console.error(error);
             }
         });
     }
@@ -245,7 +245,7 @@ function KurentoRoom(wsUri, callback) {
         console.log("room approve incoming call from "+callerName);
         this.sendRequest('callApproved', {room:room, callerName: callerName}, function (error, response) {
             if (error) {
-                console.error(error);
+                //console.error(error);
             }
         });
     }
@@ -267,11 +267,16 @@ function KurentoRoom(wsUri, callback) {
         });
     };
 
+    this.sendFile = function(room, currentPacketData, packetProperties){
+        console.log("sending image currentPacketData ",currentPacketData);
+        console.log("packetProperties:",packetProperties);
 
-    this.sendImage = function(room, imageData){
-        this.sendRequest('sendImage', {room:room, image:imageData}, function (error, response) {
+        this.sendRequest('sendFile', {room:room, packet:currentPacketData, id:packetProperties.id, c:packetProperties.current, t:packetProperties.total, tp:packetProperties.type}, function (error, response) {
             if (error) {
-                console.error(error);
+                //console.error(error);
+            }
+            else{
+                console.log("sendImage response: ",response);
             }
         });
     }

@@ -6,6 +6,8 @@
             <!--big videos-->
         </div>
 
+        <canvas id="imageOverlay"></canvas>
+
         <div style="position: absolute; z-index: 100; width: 160px; background-color: blue; color: white;">
             <div class="container" id="infoContainer">
 
@@ -18,6 +20,8 @@
             <button class="btn btn--xl btn--blue btn--fab mdi md-chat" lx-ripple ng-click="toggleChat()" title="Chat toggle"></button>
             <button class="btn btn--xl btn--green btn--fab mdi md-phone" lx-ripple ng-click="callRequest()" id="buttonCallRequest" title="Call on air"></button>
             <button class="btn btn--xl btn--red btn--fab mdi" lx-ripple ng-click="cancelCall(false)" id="buttonCancelCall" title="Cancel call" style="display: none;">X</button>
+            <button class="btn btn--xl btn--red btn--fab mdi md-message" lx-ripple ng-click="sendDataChannelMessage()" title="Send Data"></button>
+            <button class="btn btn--xl btn--red btn--fab mdi md-remove" lx-ripple ng-click="clearImageOverlay()" id="clearImageOverlayButton" title="Clear image overlay"></button>
         </div>
 
         <div id="participants">
